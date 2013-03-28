@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- 	<appender name="ASYNC_FILE" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="1000" />
+		<param name="locationInfo" value="true" />
+		<appender-ref ref="FILE" />
+	</appender> -->
+	
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="immediateFlush" value="false" />
+		<param name="bufferedIO" value="false"/>
+		<param name="Append" value="true" />
+		<!-- define system property dset.loghome using java option -D -->
+		<param name="File" value="${dset.loghome}/configManager${dset.cfgId}.log" />
+
+		<!-- Rollover at midnight each day -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p %t [%c{1}] %m (%F:%L)%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.daiwacm.dats.configManager">
+		<level value="DEBUG" />
+	</logger>
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</log4j:configuration>
